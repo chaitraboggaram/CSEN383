@@ -7,7 +7,8 @@
 int compare(void *data1, void *data2) {
 	process *p1 = (process *)data1;
 	process *p2 = (process *)data2;
-	if(p1->arrivalTime < p2->arrivalTime) {
+    
+	if (p1->arrivalTime < p2->arrivalTime) {
 		return -1;
 	} else if(p1->arrivalTime == p2->arrivalTime){
 		return 0;
@@ -23,13 +24,12 @@ linked_list *generateProcesses(int n) {
 	float arrivalTime, runTime;
 	time_t t;
 
-
    /* Intializes random number generator */
    srand((unsigned) time(&t));
 
-	if(process_list == NULL) fprintf(stderr,"Unable to create Linked List\n");
+	if (process_list == NULL) fprintf(stderr,"Unable to create Linked List\n");
 
-	while(n--) {
+	while (n--) {
 		arrivalTime = rand() % 100;
 		runTime = (float)((rand() % 100) + 1)/10;
 		priority = (rand()%4)+1;
@@ -43,7 +43,8 @@ linked_list *generateProcesses(int n) {
 
 	node *ptr = process_list->head;
 	pid = 'A';
-	while(ptr!=NULL) {
+    
+	while (ptr!=NULL) {
 		((process *)ptr->data)->pid = pid;
 		if(pid == 'Z') pid = 'a' - 1;
 		pid++;
