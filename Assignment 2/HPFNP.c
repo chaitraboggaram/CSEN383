@@ -17,10 +17,10 @@ average_stats highestPriorityFirstNP(linked_list *processes)
 {
   int t = 0; // quanta 
   // create a queue of processes.
-  queue * processQue1 = createQueue();
-  queue * processQue2 = createQueue();
-  queue * processQue3 = createQueue();
-  queue * processQue4 = createQueue();
+  queue * processQueue1 = createQueue();
+  queue * processQueue2 = createQueue();
+  queue * processQueue3 = createQueue();
+  queue * processQueue4 = createQueue();
   
   
   // create linked list to manage process order in preemeption
@@ -55,13 +55,13 @@ average_stats highestPriorityFirstNP(linked_list *processes)
 				
 				
         if(newProcess->priority == 1) 
-          enqueue(processQue1,generateProcessStat(newProcess));
+          enqueue(processQueue1,generateProcessStat(newProcess));
         if(newProcess->priority == 2) 
-          enqueue(processQue2,generateProcessStat(newProcess));
+          enqueue(processQueue2,generateProcessStat(newProcess));
         if(newProcess->priority == 3) 
-          enqueue(processQue3,generateProcessStat(newProcess));
+          enqueue(processQueue3,generateProcessStat(newProcess));
         if(newProcess->priority == 4) 
-          enqueue(processQue3,generateProcessStat(newProcess));
+          enqueue(processQueue3,generateProcessStat(newProcess));
 		
 		
 				//sort(processQueue,comparePriority);
@@ -79,13 +79,13 @@ average_stats highestPriorityFirstNP(linked_list *processes)
 		if(scheduledProcess == NULL) {
 			
 			//dequeue processes based on their sizes...
-      if (processQue1->size > 0) 
+      if (processQueue1->size > 0) 
         scheduledProcess = (process_stat *) dequeue(processQue1);
-      else if (processQue2->size > 0) 
+      else if (processQueue2->size > 0) 
         scheduledProcess = (process_stat *) dequeue(processQue2);
-      else if (processQue3->size > 0) 
+      else if (processQueue3->size > 0) 
         scheduledProcess = (process_stat *) dequeue(processQue3);
-      else if (processQue4->size > 0) 
+      else if (processQueue4->size > 0) 
         scheduledProcess = (process_stat *) dequeue(processQue4);
 	  
 	  
