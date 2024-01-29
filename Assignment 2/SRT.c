@@ -3,7 +3,7 @@
 #include "stat.h"
 #include "utility.h"
 
-process_stat *createProcessStat(process *proc);
+process_stat *generateProcessStat(process *proc);
 
 // function to compare time the completion time of processes while sorting 
 int compareRemainingTime(void *data1, void *data2)
@@ -67,7 +67,7 @@ average_stats shortestRemainingTimeP(linked_list *processes)
 		if(processPointer != NULL) {
 			process *newProcess = (process *)(processPointer->data);
 			while(processPointer !=NULL && newProcess->arrivalTime <= t) {
-				enqueue(processQueue,createProcessStat(newProcess));
+				enqueue(processQueue,generateProcessStat(newProcess));
 				//sort(processQueue,compareRemainingTime);
 				processPointer = processPointer->next;
 				if(processPointer!=NULL)

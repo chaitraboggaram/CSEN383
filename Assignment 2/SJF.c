@@ -3,7 +3,7 @@
 #include "stat.h"
 #include "utility.h"
 
-process_stat *createProcessStat(process* proc);
+process_stat *generateProcessStat(process* proc);
 
 int compareRunTime(void *data1, void *data2) {
 	process_stat *ps1 = (process_stat *) data1;
@@ -36,7 +36,7 @@ average_stats shortestJobFirstNP(linked_list *processes) {
 		if(procPtr != NULL) {
 			process *newProcess = (process *)(procPtr->data);
 			while(procPtr!=NULL && newProcess->arrivalTime <= t) {
-				enqueue(processQueue,createProcessStat(newProcess));
+				enqueue(processQueue,generateProcessStat(newProcess));
 				sort(processQueue,compareRunTime);
 				procPtr = procPtr->next;
 				if(procPtr!=NULL)

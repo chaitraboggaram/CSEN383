@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-process_stat *createProcessStat(process *proc);
+process_stat *generateProcessStat(process *proc);
 
 //Function to compare the priority and arrival time
 int priorityComparison(void *data1, void *data2)
@@ -72,13 +72,13 @@ average_stats highestPriorityFirstP(linked_list * procs)
 			//checking the new process arrival time..
 			while(proc_pointer !=NULL && newProcess->arrivalTime <= quanta) {
         if(newProcess->priority == 1) 
-          enqueue(proc_queue1,createProcessStat(newProcess));
+          enqueue(proc_queue1,generateProcessStat(newProcess));
         if(newProcess->priority == 2) 
-          enqueue(proc_queue2,createProcessStat(newProcess));
+          enqueue(proc_queue2,generateProcessStat(newProcess));
         if(newProcess->priority == 3) 
-          enqueue(proc_queue3,createProcessStat(newProcess));
+          enqueue(proc_queue3,generateProcessStat(newProcess));
         if(newProcess->priority == 4) 
-          enqueue(proc_queue3,createProcessStat(newProcess));
+          enqueue(proc_queue3,generateProcessStat(newProcess));
 		
 		    //sort the queues based on priority comparison.
 				sort(proc_queue1,priorityComparison);

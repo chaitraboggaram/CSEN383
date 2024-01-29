@@ -3,7 +3,7 @@
 #include "stat.h"
 #include "utility.h"
 
-process_stat *createProcessStat(process *proc);
+process_stat *generateProcessStat(process *proc);
 
 average_stats roundRobin(linked_list *processes, int time_slice) {
     int current_time = 0;
@@ -30,7 +30,7 @@ average_stats roundRobin(linked_list *processes, int time_slice) {
         if (process_pointer != NULL && current_time < 100) {
             process *new_process = (process *)(process_pointer->data);
             while (process_pointer != NULL && new_process->arrivalTime <= current_time) {
-                enqueue(process_queue, createProcessStat(new_process));
+                enqueue(process_queue, generateProcessStat(new_process));
                 process_pointer = process_pointer->next;
                 if (process_pointer != NULL)
                     new_process = (process *)(process_pointer->data);

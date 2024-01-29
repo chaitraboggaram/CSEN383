@@ -3,7 +3,7 @@
 #include "stat.h"
 #include "utility.h"
 
-process_stat *createProcessStat(process *proc);
+process_stat *generateProcessStat(process *proc);
 int comparePriority(void *data1, void *data2);
 void printqueue(queue *q);
 
@@ -49,13 +49,13 @@ average_stats highestPriorityFirstNP(linked_list *processes)
 				
 				
         if(newProcess->priority == 1) 
-          enqueue(processQue1,createProcessStat(newProcess));
+          enqueue(processQue1,generateProcessStat(newProcess));
         if(newProcess->priority == 2) 
-          enqueue(processQue2,createProcessStat(newProcess));
+          enqueue(processQue2,generateProcessStat(newProcess));
         if(newProcess->priority == 3) 
-          enqueue(processQue3,createProcessStat(newProcess));
+          enqueue(processQue3,generateProcessStat(newProcess));
         if(newProcess->priority == 4) 
-          enqueue(processQue3,createProcessStat(newProcess));
+          enqueue(processQue3,generateProcessStat(newProcess));
 		
 		
 				//sort(processQueue,comparePriority);
