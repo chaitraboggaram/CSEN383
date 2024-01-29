@@ -12,75 +12,79 @@
 process_stat *generateProcessStat(process* proc);
 
 int compareRunTime(void *data1, void *data2) {
-	process_stat *ps1 = (process_stat *) data1;
-	process_stat *ps2 = (process_stat *) data2;
-	if(((process *)ps1->proc)->runTime < ((process *)ps2->proc)->runTime) {
-		return -1;
-	} else {
-		return 1;
-	}
+    process_stat *prs1 = (process_stat *) data1;
+    process_stat *prs2 = (process_stat *) data2;
+    if(((process *)prs1->proc)->runTime < ((process *)prs2->proc)->runTime) {
+        return -1;
+    } else {
+        return 1;
+    }
 }
 
 average_stats shortestJobFirstNP(linked_list *processes) {
-	int t = 0;
+    int time = 0;
 
-	//Creation of Process Queue
-	queue *processQueue = (queue *)createQueue();
-	node *procPtr = processes->head;
-	if(processes->head == NULL) {
-		fprintf(stderr,"No Process to schedule\n");
-	}
-	//keep checking while time quanta is less than 100 or the process queue is empty...
-	process_stat *scheduledProcess = NULL;
+    //Create Process Queue
+    queue *processQueue = (queue *)createQueue();
+    node *procPtr = processes->head;
+    if(processes->head == NULL) {
+        fprintf(stderr,"No Process to schedule\n");
+    }
 
-	linked_list *ll = createLinkedList();
-	printf("\n\n\n==================================================================================================================================\n");
-	printf("\nShortest Job First Algorithm:\n");
-	printf("Order of Processes in Execution: ");
-	while(t<100 || scheduledProcess!=NULL) {
-		//check for incoming new process and do enqueue.
-		if(procPtr != NULL) {
-			process *newProcess = (process *)(procPtr->data);
-			while(procPtr!=NULL && newProcess->arrivalTime <= t) {
-				enqueue(processQueue,generateProcessStat(newProcess));
-				sort(processQueue,compareRunTime);
-				procPtr = procPtr->next;
-				if(procPtr!=NULL)
-					newProcess = (process *)(procPtr->data);
-			}
-		}
+    process_stat *scheduledProcess = NULL;
 
-		//check process queue and schedule it if there is no scheduled process now..
-		if(scheduledProcess == NULL && processQueue->size > 0) {
-			scheduledProcess = (process_stat *) dequeue(processQueue);
-		}
+    linked_list *ll = createLinkedList();
+    printf("\n\n\n==================================================================================================================================\n");
+    printf("\nShortest Job First Algorithm:\n");
+    printf("Order of Processes in Execution: ");
+    
+    //keep checking while the process queue is empty or the time quanta is less than 100.
+    while(scheduledProcess!=NULL || time<100 ) {
+        //check for incoming new process and enqueue it in the queue
+        if(procPtr != NULL) {
+            process *newProcess = (process *)(procPtr->data);
+            while(procPtr!=NULL && newProcess->arrivalTime <= time) {
+                enqueue(processQueue,generateProcessStat(newProcess));
+                sort(processQueue,compareRunTime);
+                procPtr = procPtr->next;
+                if(procPtr!=NULL)
+                    newProcess = (process *)(procPtr->data);
+            }
+        }
 
-		if(scheduledProcess != NULL) {
-			process * proc = scheduledProcess->proc;
+        // If there is no scheduled process now then check the process queue and schedule it.
+        if(scheduledProcess == NULL && processQueue->size > 0) {
+            scheduledProcess = (process_stat *) dequeue(processQueue);
+        }
 
-			//add the currently running process to the time chart
-			printf("%c",proc->pid);
+        if(scheduledProcess != NULL) {
+            process * proc = scheduledProcess->proc;
 
-			//update the current processes stat
-			if(scheduledProcess->startTime == -1) {
-				scheduledProcess->startTime = t;
-			}
-			scheduledProcess->runTime++;
+            //add the current running process to the time chart
+            printf("%c",proc->pid);
 
-			if(scheduledProcess->runTime >= proc->runTime) {
-				scheduledProcess->endTime = t;
-				addNode(ll,scheduledProcess);
-				scheduledProcess = NULL;
-			}
-		} else {
-			printf("_");
-		}
-		//keep increasing the time
-		t++;
-	}
-	printf("\n");
+            //update the current processes stat
+            if(scheduledProcess->startTime == -1) {
+                scheduledProcess->startTime = time;
+            }
+            scheduledProcess->runTime++;
 
-	//Printing Process Stat
-	return printPolicyStat(ll);
-	
+            if(scheduledProcess->runTime >= proc->runTime) {
+                scheduledProcess->endTime = time;
+                //adding the scheduled process
+                addNode(ll,scheduledProcess);
+                scheduledProcess = NULL;
+            }
+        } else {
+            printf("_");
+        }
+        //Increasing the time
+        time++;
+    }
+    printf("\n");
+
+    //Printing the stat of the process
+    return printPolicyStat(ll);
+    
 }
+

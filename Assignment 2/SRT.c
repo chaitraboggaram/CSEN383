@@ -11,19 +11,7 @@
 
 process_stat *generateProcessStat(process *proc);
 
-// function to compare time the completion time of processes while sorting 
-int compareRemainingTime(void *data1, void *data2)
-{
-  process_stat *ps1 = (process_stat *) data1;
-	process_stat *ps2 = (process_stat *) data2;
-	if(((((process *)ps1->proc)->runTime) - (ps1->runTime)) < ((((process *)ps2->proc)->runTime) - (ps2->runTime))) {
-		return -1;
-	} else {
-		return 1;
-	}
-}
-
-// function to print contents of queue for testing purpose during shortest remaining time to completion 
+// printQueueSRT is a function to print the contents of the queue during srt
 void printQueueSRT(queue *q)
 {
   if (q->head != NULL)
@@ -40,11 +28,24 @@ void printQueueSRT(queue *q)
   }
   return;
 }
+//  CRT function helps to compare the completion time of processess during sorting  
+int Crt(void *data1, void *data2)
+{
+  process_stat *ps1 = (process_stat *) data1;
+	process_stat *ps2 = (process_stat *) data2;
+	if(((((process *)ps1->proc)->runTime) - (ps1->runTime)) < ((((process *)ps2->proc)->runTime) - (ps2->runTime))) {
+		return -1;
+	} else {
+		return 1;
+	}
+}
+
+
 
 // Implementation of shortest remaining time to completion preemptive //
 average_stats shortestRemainingTimeP(linked_list *processes)
 {
-  int t = 0; // quanta
+  int timequanta = 0; 
 
   // creation of a queue of processes
   queue *processQueue = createQueue();
@@ -56,14 +57,14 @@ average_stats shortestRemainingTimeP(linked_list *processes)
 		fprintf(stderr,"No Process to schedule\n");
 	}
 
-  //while process queue is not empty or time quanta is less than 100
+  //runs until  time quanta is less than 100 or process queue is not empty or
   process_stat *scheduledProcess = NULL;
 	printf("\n\n\n==================================================================================================================================\n");
   printf("\nShortest Remaining Time Algorithm:\n");
   printf("Order of Processes in Execution: ");
-  while(t<100 || scheduledProcess!=NULL )
+  while(timequanta<100 || scheduledProcess!=NULL )
   {
-    //printf("time %d\n",t);
+ 
     if(scheduledProcess!=NULL)
     {
       enqueue(processQueue,scheduledProcess);
@@ -72,7 +73,7 @@ average_stats shortestRemainingTimeP(linked_list *processes)
     //check for incoming new process and enqueue it in the queue
 		if(processPointer != NULL) {
 			process *newProcess = (process *)(processPointer->data);
-			while(processPointer !=NULL && newProcess->arrivalTime <= t) {
+			while(processPointer !=NULL && newProcess->arrivalTime <= timequanta) {
 				enqueue(processQueue,generateProcessStat(newProcess));
 				//sort(processQueue,compareRemainingTime);
 				processPointer = processPointer->next;
@@ -81,16 +82,16 @@ average_stats shortestRemainingTimeP(linked_list *processes)
 					newProcess = (process *)(processPointer->data);
         }
 			}
-      // sort all the processes that have arrived based on their remaining running time to completion //
-      sort(processQueue,compareRemainingTime);
+      // Sorting all the processes that have arrived in the queue depending on their remaining running time till completion.
+      sort(processQueue,Crt);
     }
 
-    //if there is no scheduled process, then check process queue and schedule it //
+    //if scheduled process is null ,it checks process queue and it schedules  
 		if(scheduledProcess == NULL && processQueue->size > 0) {
 			scheduledProcess = (process_stat *) dequeue(processQueue);
 
-      // If the process has not started before quanta 100, remove the process from the queue and take the next process in queue for execution //
-      while(t>=100 && scheduledProcess->startTime == -1)
+      // process is removed from the queue if it hasn't started beofre time quanta 100 and next process in queue is executed.
+      while(timequanta>=100 && scheduledProcess->startTime == -1)
       {
         scheduledProcess = (process_stat *) dequeue(processQueue);
       }
@@ -98,26 +99,26 @@ average_stats shortestRemainingTimeP(linked_list *processes)
     if(scheduledProcess != NULL) {
   			process *proc = scheduledProcess->proc;
 
-  			//add the currently running process to the time chart
+  			// running process is added to chart 
   			printf("%c",proc->pid);
 
   			//update the current processes stat
   			if(scheduledProcess->startTime == -1) {
-  				scheduledProcess->startTime = t;
+  				scheduledProcess->startTime = timequanta;
   			}
 
   			scheduledProcess->runTime++;
 
         if(scheduledProcess->runTime >= proc->runTime) {
-          scheduledProcess->endTime = t;
+          scheduledProcess->endTime = timequanta;
           addNode(ll,scheduledProcess);
           scheduledProcess = NULL;
         }
       }else {
     			printf("_");
     	}
-  		//keep increasing the time
-  		t++;
+  	
+  		timequanta++;
   }
   //Print Process Stat
   return printPolicyStat(ll);
