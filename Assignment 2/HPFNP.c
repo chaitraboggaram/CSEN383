@@ -50,7 +50,7 @@ average_stats highestPriorityFirstNP(linked_list *processes)
 		if(processPointer != NULL) {
 			process * newProcess = (process *)(processPointer->data);
 			
-			//keep checking if the process pointer is not null and new process arrival time is less than equal to t...
+		//Continue verifying whether the process pointer is not null and if the arrival time of the new process is less than or equal to the current time t.
 			while(processPointer !=NULL && newProcess->arrivalTime <= t) {
 				
 				
@@ -89,7 +89,7 @@ average_stats highestPriorityFirstNP(linked_list *processes)
         scheduledProcess = (process_stat *) dequeue(processQue4);
 	  
 	  
-      // If the process has not started before quanta 100, remove the process from the queue and take the next process in queue for execution //
+      // If the process hasn't commenced by quantum 100, eliminate the process from the queue and proceed with the next process in line for execution.//
      
 	 //if the time > = 100 an startime -1,null the scheduled process.
 	 
@@ -150,7 +150,7 @@ average_stats highestPriorityFirstNP(linked_list *processes)
     printf("\nFor  the Priority Queue 4");
     avg4 = printPolicyStat(linkedlist4);
 
-//calcultaing average response time ,wait time,turnaround time and throughput.
+//calcultaing the mean response time ,wait time,turnaround time and throughput.
     avg.avg_response_time = (avg1.avg_response_time + avg2.avg_response_time + avg3.avg_response_time + avg4.avg_response_time)/4 ;
     avg.avg_wait_time = (avg1.avg_wait_time + avg2.avg_wait_time + avg3.avg_wait_time + avg4.avg_wait_time)/4 ;
     avg.avg_turnaround = (avg1.avg_turnaround + avg2.avg_turnaround + avg3.avg_turnaround + avg4.avg_turnaround)/4 ;
