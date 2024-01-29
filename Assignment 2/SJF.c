@@ -1,3 +1,9 @@
+/*
+ Group 2
+ Advance Operating Systems
+ Algorithm: Shortest Job First
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "stat.h"

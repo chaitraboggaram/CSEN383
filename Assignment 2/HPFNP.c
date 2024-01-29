@@ -1,3 +1,9 @@
+/*
+ Group 2
+ Advance Operating Systems
+ Algorithm: Highest Priority First Non-preemptive
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "stat.h"

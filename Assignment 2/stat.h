@@ -9,13 +9,12 @@ struct process_stat_s {
 	float waitingTime;
 	float turnaroundTime;
 	float responseTime;
-
 	float startTime;
 	float endTime;
 	float runTime;
-
 	enum State state;
 };
+
 typedef struct process_stat_s process_stat;
 
 struct stat_s {
@@ -27,6 +26,7 @@ struct stat_s {
 	float throughput;
 	int total_quanta;
 };
+
 typedef struct stat_s scheduling_stat;
 
 struct average_stats_s{
@@ -47,6 +47,7 @@ average_stats highestPriorityFirstNP(linked_list * processes);
 average_stats highest_priority_first_p_aging(linked_list * processes);
 average_stats highest_priority_first_np_aging(linked_list * processes);
 
-// Print Stat//
+// To print policy stat
 average_stats printPolicyStat(linked_list * ll);
+
 #endif

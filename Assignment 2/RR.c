@@ -1,3 +1,9 @@
+/*
+ Group 2
+ Advance Operating Systems
+ Algorithm: Round Robin
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "stat.h"

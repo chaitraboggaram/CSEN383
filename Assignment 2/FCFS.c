@@ -1,18 +1,24 @@
+/*
+ Group 2
+ Advance Operating Systems
+ Algorithm: First Come First Server
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "stat.h"
 #include "utility.h"
 
 process_stat *generateProcessStat(process *proc) {
-    process_stat *ps = (process_stat *) malloc(sizeof(process_stat));
-    ps->proc = proc;
-    ps->waitingTime = 0;
-    ps->turnaroundTime = 0;
-    ps->responseTime = 0;
-    ps->runTime = 0;
-    ps->startTime = -1;
-    ps->endTime = -1;
-    return ps;
+    process_stat *newProcessStat = (process_stat *) malloc(sizeof(process_stat));
+    newProcessStat->proc = proc;
+    newProcessStat->waitingTime = 0;
+    newProcessStat->turnaroundTime = 0;
+    newProcessStat->responseTime = 0;
+    newProcessStat->runTime = 0;
+    newProcessStat->startTime = -1;
+    newProcessStat->endTime = -1;
+    return newProcessStat;
 }
 
 average_stats firstComeFirstServeNP(linked_list *processes) {
