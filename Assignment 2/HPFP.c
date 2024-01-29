@@ -149,30 +149,30 @@ average_stats highestPriorityFirstP(linked_list * procs)
   		quanta++;
     }
     //Print Process Statistics
-    average_stats average1,average2,average3,average4,average;
+    average_stats avg1,avg2,avg3,avg4,avg;
     printf("\nFor the  Priority Queue 1");
-    average1 = printPolicyStat(linkedList1);
+    avg1 = printPolicyStat(linkedList1);
     printf("\nFor the Priority Queue 2");
-    average2 = printPolicyStat(linkedList2);
+    avg2 = printPolicyStat(linkedList2);
     printf("\nFor the  Priority Queue 3");
-    average3 = printPolicyStat(linkedList3);
+    avg3 = printPolicyStat(linkedList3);
     printf("\nFor  the Priority Queue 4");
-    average4 = printPolicyStat(linkedList4);
+    avg4 = printPolicyStat(linkedList4);
 
-    average.avg_response_time = (average1.avg_response_time + average2.avg_response_time + average3.avg_response_time + average4.avg_response_time)/4 ;
-    average.avg_wait_time = (average1.avg_wait_time + average2.avg_wait_time + average3.avg_wait_time + average4.avg_wait_time)/4 ;
-    average.avg_turnaround = (average1.avg_turnaround + average2.avg_turnaround + average3.avg_turnaround + average4.avg_turnaround)/4 ;
-    average.avg_throughput = (average1.avg_throughput + average2.avg_throughput + average3.avg_throughput + average4.avg_throughput) ;
+    avg.avg_response_time = (avg1.avg_response_time + avg2.avg_response_time + avg3.avg_response_time + avg4.avg_response_time)/4 ;
+    avg.avg_wait_time = (avg1.avg_wait_time + avg2.avg_wait_time + avg3.avg_wait_time + avg4.avg_wait_time)/4 ;
+    avg.avg_turnaround = (avg1.avg_turnaround + avg2.avg_turnaround + avg3.avg_turnaround + avg4.avg_turnaround)/4 ;
+    avg.avg_throughput = (avg1.avg_throughput + avg2.avg_throughput + avg3.avg_throughput + avg4.avg_throughput) ;
 
     printf("\nThe following represent the average times of Highest Priority First Preemptive for all queues:\n");
     printf("|------------------------------------------------------------|\n");
     printf("| Metric                    | Average Value                  |\n");
     printf("|---------------------------|--------------------------------|\n");
-    printf("| Average Response Time     | %.1f                           |\n", average.avg_response_time);
-    printf("| Average Wait Time         | %.1f                           |\n", average.avg_wait_time);
-    printf("| Average Turn Around Time  | %.1f                           |\n", average.avg_turnaround);
+    printf("| Average Response Time     | %.1f                           |\n", avg.avg_response_time);
+    printf("| Average Wait Time         | %.1f                           |\n", avg.avg_wait_time);
+    printf("| Average Turn Around Time  | %.1f                           |\n", avg.avg_turnaround);
     printf("|------------------------------------------------------------|\n");
 
 
-    return average;
+    return avg;
 }
