@@ -80,13 +80,13 @@ average_stats highestPriorityFirstNP(linked_list *processes)
 			
 			//dequeue processes based on their sizes...
       if (processQueue1->size > 0) 
-        scheduledProcess = (process_stat *) dequeue(processQue1);
+        scheduledProcess = (process_stat *) dequeue(processQueue1);
       else if (processQueue2->size > 0) 
-        scheduledProcess = (process_stat *) dequeue(processQue2);
+        scheduledProcess = (process_stat *) dequeue(processQueue2);
       else if (processQueue3->size > 0) 
-        scheduledProcess = (process_stat *) dequeue(processQue3);
+        scheduledProcess = (process_stat *) dequeue(processQueue3);
       else if (processQueue4->size > 0) 
-        scheduledProcess = (process_stat *) dequeue(processQue4);
+        scheduledProcess = (process_stat *) dequeue(processQueue4);
 	  
 	  
       // If the process hasn't commenced by quantum 100, eliminate the process from the queue and proceed with the next process in line for execution.//
