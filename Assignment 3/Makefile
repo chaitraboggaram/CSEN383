@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -pthread
-SRCS = project3.c queue.c
+SRCS = tickets.c queue.c
 OBJS = $(SRCS:.c=.o)
 TARGET = p3
 DEFAULT_ARG = 10
