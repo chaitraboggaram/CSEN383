@@ -2,16 +2,7 @@
 #include <stdlib.h>
 #include "queue.h"
 
-// Implementation of Queue
-Node *createNode(void *value)
-{
-    Node *newNode = (Node *)malloc(sizeof(Node));
-    newNode->value = value;
-    newNode->next = NULL;
-    newNode->prev = NULL;
-    return newNode;
-}
-
+//Create a new empty queue
 Queue *createQueue()
 {
     Queue *newQueue = (Queue *)malloc(sizeof(Queue));
@@ -21,6 +12,17 @@ Queue *createQueue()
     return newQueue;
 }
 
+//Create a new node with the given value
+Node *createNode(void *value)
+{
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    newNode->value = value;
+    newNode->next = NULL;
+    newNode->prev = NULL;
+    return newNode;
+}
+
+//Enqueue a new node with the given value to the end of the queue
 void enqueue(Queue *q, void *value)
 {
     Node *newNode = createNode(value);
@@ -39,6 +41,7 @@ void enqueue(Queue *q, void *value)
     q->size++;
 }
 
+//Dequeue and return the value of the node from the front of the queue
 void *dequeue(Queue *q)
 {
     if (q->head == NULL)
@@ -46,10 +49,10 @@ void *dequeue(Queue *q)
         return NULL;
     }
 
-    Node *curNode = q->head;
-    void *value = curNode->value;
+    Node *currentNode = q->head;
+    void *value = currentNode->value;
 
-    q->head = curNode->next;
+    q->head = currentNode->next;
     if (q->head != NULL)
     {
         q->head->prev = NULL;
@@ -60,10 +63,19 @@ void *dequeue(Queue *q)
     }
 
     q->size--;
-    free(curNode);
+    free(currentNode);
     return value;
 }
 
+//Function to swap the values of two nodes
+void swapNodes(Node *node1, Node *node2)
+{
+    void *temp = node1->value;
+    node1->value = node2->value;
+    node2->value = temp;
+}
+
+//Function to sort the Queue based on the comparison function provided
 void sort(Queue *q, int (*cmp)(void *val1, void *val2))
 {
     Node *i = q->head;
@@ -80,11 +92,4 @@ void sort(Queue *q, int (*cmp)(void *val1, void *val2))
         }
         i = i->next;
     }
-}
-
-void swapNodes(Node *a, Node *b)
-{
-    void *temp = a->value;
-    a->value = b->value;
-    b->value = temp;
 }
